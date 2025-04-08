@@ -105,7 +105,7 @@ Return ONLY the JSON array, nothing else."""
                 
             # Add placeholder image URLs
             for rec in recommendations:
-                rec["image_url"] = "https://via.placeholder.com/150"
+                rec["image_url"] = "https://placehold.co/400x300/CCCCCC/333333?text=Product+Image"
                 
             return recommendations, None
             
