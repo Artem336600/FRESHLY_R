@@ -139,7 +139,8 @@ def get_recommendations(theme: str, supabase) -> Tuple[List[dict], Optional[str]
             return [], "API key not found in environment variables"
             
         # Construct the prompt
-        prompt = {
+        data = {
+            "model": "deepseek-chat",
             "messages": [
                 {
                     "role": "system",
@@ -163,7 +164,7 @@ def get_recommendations(theme: str, supabase) -> Tuple[List[dict], Optional[str]
         response = requests.post(
             "https://api.deepseek.com/v1/chat/completions",
             headers=headers,
-            json=prompt,
+            json=data,
             timeout=30  # Add timeout
         )
         
