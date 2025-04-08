@@ -115,7 +115,7 @@
             </div>
         </div>
         
-        <form action="{{ url_for('recommend') }}" method="POST" class="search-form" id="searchForm">
+        <form action="{{ url_for('get_recommendations_route') }}" method="POST" class="search-form" id="searchForm">
             <div class="form-group">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" name="theme" placeholder="Введите тему или категорию..." required>
