@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ category }} - Freshly{% endblock %}
+
+{% block content %}
+<section class="category-page">
+    <div class="page-header">
+        <h1>{{ category }}</h1>
+        <p>Найдите идеальные продукты для ваших потребностей</p>
+    </div>
+
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <div class="product-image-container">
+                <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">{{ product.name }}</h3>
+                <p class="product-description">{{ product.description }}</p>
+                <div class="product-price">{{ product.price }} ₽</div>
+                <a href="{{ product.link }}" class="product-link" target="_blank">
+                    <i class="fas fa-shopping-cart"></i>
+                    Купить
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %} 

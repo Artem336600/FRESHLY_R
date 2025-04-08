@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Контакты - ProductFinder{% endblock %}
+
+{% block content %}
+<section class="contact-page">
+    <div class="page-header">
+        <h1>Свяжитесь с нами</h1>
+        <p>Мы всегда рады помочь и ответить на ваши вопросы</p>
+    </div>
+
+    <div class="contact-content">
+        <div class="contact-info">
+            <div class="info-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Адрес</h3>
+                <p>г. Москва, ул. Примерная, д. 123</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-phone"></i>
+                <h3>Телефон</h3>
+                <p>+7 (999) 123-45-67</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-envelope"></i>
+                <h3>Email</h3>
+                <p>info@productfinder.ru</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-clock"></i>
+                <h3>Часы работы</h3>
+                <p>Пн-Пт: 9:00 - 18:00</p>
+            </div>
+        </div>
+
+        <div class="contact-form">
+            <h2>Отправить сообщение</h2>
+            <form action="{{ url_for('contact') }}" method="POST">
+                <div class="form-group">
+                    <label for="name">Ваше имя</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Тема</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Сообщение</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Отправить
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="map-section">
+        <h2>Как нас найти</h2>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.3717874091344!2d37.617299315930474!3d55.75582628055278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a50b315e573%3A0xa886bf5a3d9b2e68!2z0JzQvtGB0LrQvtCy0YHQutC40Lkg0JrRgNC10LzQu9GM!5e0!3m2!1sru!2sru!4v1645000000000!5m2!1sru!2sru" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+            </iframe>
+        </div>
+    </div>
+</section>
+{% endblock %} 

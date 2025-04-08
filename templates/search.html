@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Поиск - ProductFinder{% endblock %}
+
+{% block content %}
+<section class="search-page">
+    <div class="page-header">
+        <h1>Результаты поиска</h1>
+        <p>По запросу: "{{ query }}"</p>
+    </div>
+
+    <div class="search-form">
+        <form action="{{ url_for('search') }}" method="GET">
+            <div class="input-group">
+                <i class="fas fa-search"></i>
+                <input type="text" name="query" value="{{ query }}" placeholder="Что вы ищете?" required>
+            </div>
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-search"></i>
+                Поиск
+            </button>
+        </form>
+    </div>
+
+    <div class="products-grid">
+        {% for product in products %}
+        <div class="product-card">
+            <div class="product-image">
+                <img src="{{ product.image_url }}" alt="{{ product.name }}">
+            </div>
+            <div class="product-content">
+                <h3>{{ product.name }}</h3>
+                <div class="product-details">
+                    <div class="detail-item">
+                        <i class="fas fa-tag"></i>
+                        <p>{{ product.price }} ₽</p>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-store"></i>
+                        <p>{{ product.store }}</p>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-star"></i>
+                        <p>Рейтинг: {{ product.rating }}/5</p>
+                    </div>
+                </div>
+                <a href="{{ product.url }}" class="buy-btn" target="_blank">
+                    <i class="fas fa-shopping-cart"></i>
+                    Купить
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not products %}
+    <div class="no-results">
+        <i class="fas fa-search"></i>
+        <h2>Ничего не найдено</h2>
+        <p>Попробуйте изменить параметры поиска</p>
+    </div>
+    {% endif %}
+</section>
+{% endblock %} 

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}О нас - ProductFinder{% endblock %}
+
+{% block content %}
+<section class="about-page">
+    <div class="page-header">
+        <h1>О нас</h1>
+        <p>Узнайте больше о нашем сервисе и команде</p>
+    </div>
+
+    <div class="about-section">
+        <div class="about-text">
+            <h2>Наша миссия</h2>
+            <p>ProductFinder создан с целью упростить процесс выбора продуктов для каждого человека. Мы используем передовые технологии искусственного интеллекта, чтобы помочь вам найти именно те товары, которые лучше всего подходят под ваши потребности и предпочтения.</p>
+        </div>
+        <div class="about-image">
+            <img src="{{ url_for('static', filename='images/mission.jpg') }}" alt="Наша миссия">
+        </div>
+    </div>
+
+    <div class="about-section reverse">
+        <div class="about-image">
+            <img src="{{ url_for('static', filename='images/how-it-works.jpg') }}" alt="Как это работает">
+        </div>
+        <div class="about-text">
+            <h2>Как это работает</h2>
+            <p>Наш алгоритм анализирует тысячи продуктов, учитывая множество факторов: состав, питательную ценность, отзывы пользователей, сезонность и многое другое. Это позволяет нам предоставлять персонализированные рекомендации, которые действительно соответствуют вашим потребностям.</p>
+        </div>
+    </div>
+
+    <div class="team-section">
+        <h2>Наша команда</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team1.jpg') }}" alt="Александр Петров">
+                <h3>Александр Петров</h3>
+                <p>Основатель и CEO</p>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team2.jpg') }}" alt="Елена Смирнова">
+                <h3>Елена Смирнова</h3>
+                <p>Главный технолог</p>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team3.jpg') }}" alt="Дмитрий Иванов">
+                <h3>Дмитрий Иванов</h3>
+                <p>Руководитель разработки</p>
+            </div>
+            <div class="team-member">
+                <img src="{{ url_for('static', filename='images/team4.jpg') }}" alt="Анна Козлова">
+                <h3>Анна Козлова</h3>
+                <p>Менеджер по продукту</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} 

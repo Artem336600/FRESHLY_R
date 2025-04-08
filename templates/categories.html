@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Категории - ProductFinder{% endblock %}
+
+{% block content %}
+<section class="categories-page">
+    <div class="page-header">
+        <h1>Категории продуктов</h1>
+        <p>Выберите интересующую вас категорию для просмотра рекомендованных продуктов</p>
+    </div>
+
+    <div class="categories-grid">
+        <a href="{{ url_for('category', category='picnic') }}" class="category-card">
+            <i class="fas fa-utensils"></i>
+            <h3>Пикник</h3>
+            <p>Идеальные продукты для отдыха на природе</p>
+        </a>
+        <a href="{{ url_for('category', category='holiday') }}" class="category-card">
+            <i class="fas fa-gift"></i>
+            <h3>Праздник</h3>
+            <p>Товары для особых случаев</p>
+        </a>
+        <a href="{{ url_for('category', category='health') }}" class="category-card">
+            <i class="fas fa-heartbeat"></i>
+            <h3>Здоровье</h3>
+            <p>Полезные и натуральные продукты</p>
+        </a>
+        <a href="{{ url_for('category', category='sport') }}" class="category-card">
+            <i class="fas fa-running"></i>
+            <h3>Спорт</h3>
+            <p>Энергия и питание для активного образа жизни</p>
+        </a>
+        <a href="{{ url_for('category', category='vegan') }}" class="category-card">
+            <i class="fas fa-leaf"></i>
+            <h3>Веган</h3>
+            <p>Растительные продукты и альтернативы</p>
+        </a>
+        <a href="{{ url_for('category', category='kids') }}" class="category-card">
+            <i class="fas fa-baby"></i>
+            <h3>Детское</h3>
+            <p>Питание и продукты для детей</p>
+        </a>
+        <a href="{{ url_for('category', category='diet') }}" class="category-card">
+            <i class="fas fa-weight"></i>
+            <h3>Диета</h3>
+            <p>Продукты для здорового питания</p>
+        </a>
+        <a href="{{ url_for('category', category='quick') }}" class="category-card">
+            <i class="fas fa-clock"></i>
+            <h3>Быстро</h3>
+            <p>Быстрые и простые решения</p>
+        </a>
+    </div>
+</section>
+{% endblock %} 
