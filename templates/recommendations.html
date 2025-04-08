@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Рекомендации для "{{ theme }}"</h1>
+    
+    {% if recommendations %}
+        <div class="row">
+            {% for rec in recommendations %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="{{ rec.image_url }}" class="card-img-top" alt="{{ rec.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ rec.name }}</h5>
+                            <p class="card-text">{{ rec.description }}</p>
+                            <p class="card-text"><small class="text-muted">{{ rec.explanation }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            К сожалению, не удалось найти рекомендации для "{{ theme }}".
+        </div>
+    {% endif %}
+    
+    <div class="text-center mt-4">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Назад к поиску</a>
+    </div>
+</div>
+{% endblock %} 

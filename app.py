@@ -1,5 +1,6 @@
 # app.py
 import os
+import logging
 from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from dotenv import load_dotenv
 from supabase import create_client, Client
@@ -7,6 +8,10 @@ import sys
 
 # Импортируем основную функцию из нашего модуля
 from recommender import get_recommendations
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Загружаем переменные из .env файла только в development
 if os.path.exists('.env'):
