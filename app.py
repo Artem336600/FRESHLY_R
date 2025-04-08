@@ -44,25 +44,29 @@ def index():
     """Отображает главную страницу с формой ввода темы."""
     return render_template('index.html')
 
-@app.route('/recommendations', methods=['POST'])
+@app.route('/get_recommendations', methods=['POST'])
 def get_recommendations_route():
     try:
-        data = request.get_json()
-        theme = data.get('theme')
-        
+        # Handle both JSON and form data
+        if request.is_json:
+            data = request.get_json()
+            theme = data.get('theme')
+        else:
+            theme = request.form.get('theme')
+            
         if not theme:
-            return jsonify({'error': 'Тема не указана'}), 400
+            return jsonify({"error": "Theme is required"}), 400
             
         recommendations, error = get_recommendations(theme, supabase)
         
         if error:
-            return jsonify({'error': error}), 400
+            return jsonify({"error": error}), 500
             
-        return jsonify({'recommendations': recommendations}), 200
+        return render_template('recommendations.html', recommendations=recommendations, theme=theme)
         
     except Exception as e:
-        print(f"Error in get_recommendations_route: {str(e)}")
-        return jsonify({'error': 'Внутренняя ошибка сервера'}), 500
+        logger.error(f"Error in get_recommendations_route: {str(e)}")
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/categories')
 def categories():
