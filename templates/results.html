@@ -1,70 +1,72 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Результаты подбора для "{{ theme }}"</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
-<body>
-    <div class="container">
-        <div class="card">
-            <div class="header">
-                <h1><i class="fas fa-search"></i> Результаты для "{{ theme }}"</h1>
-                <p class="subtitle">Найденные продукты, которые подходят для вашей темы</p>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="results-section">
+        <div class="header">
+            <h1><i class="fas fa-search"></i> Результаты для "{{ theme }}"</h1>
+            <p class="subtitle">Найденные продукты, которые подходят для вашей темы</p>
+        </div>
+
+        {% if error %}
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>{{ error }}</p>
             </div>
+        {% endif %}
 
-            {% if error %}
-                <div class="error-message">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <p>{{ error }}</p>
-                </div>
-            {% endif %}
-
-            {% if products %}
-                <div class="products-grid">
-                    {% for product in products %}
-                        <div class="product-card">
-                            {% if product.img %}
-                                <div class="product-image">
-                                    <img src="{{ product.img }}" alt="{{ product.name }}">
+        {% if products %}
+            <div class="products-grid">
+                {% for product in products %}
+                    <div class="product-card">
+                        {% if product.img %}
+                            <div class="product-image">
+                                <img src="{{ product.img }}" alt="{{ product.name }}">
+                                {% if product.discount %}
+                                    <div class="discount-badge">-{{ product.discount }}%</div>
+                                {% endif %}
+                                {% if product.prep_time %}
+                                    <div class="time-badge">+{{ product.prep_time }} МИН</div>
+                                {% endif %}
+                                {% if product.temperature %}
+                                    <div class="temp-badge">{{ product.temperature }}</div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                        <div class="product-content">
+                            <div class="product-price">
+                                <span class="current-price">{{ product.cost }}₽</span>
+                                {% if product.old_price %}
+                                    <span class="old-price">{{ product.old_price }}₽</span>
+                                {% endif %}
+                            </div>
+                            <h3 class="product-name">{{ product.name }}</h3>
+                            {% if product.weight %}
+                                <div class="product-weight">{{ product.weight }} г</div>
+                            {% endif %}
+                            {% if product.explanation %}
+                                <div class="product-explanation">
+                                    <i class="fas fa-info-circle"></i>
+                                    <p>{{ product.explanation }}</p>
                                 </div>
                             {% endif %}
-                            <div class="product-content">
-                                <h3>{{ product.name }}</h3>
-                                <div class="product-details">
-                                    <div class="detail-item">
-                                        <i class="fas fa-info-circle"></i>
-                                        <p>{{ product.explanation | default('Объяснение не найдено.') }}</p>
-                                    </div>
-                                    <div class="detail-item">
-                                        <i class="fas fa-tag"></i>
-                                        <p>{{ product.cost | default('N/A') }}</p>
-                                    </div>
-                                    <div class="detail-item">
-                                        <i class="fas fa-folder"></i>
-                                        <p>{{ product.categories | join(', ') }}</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <button class="add-to-cart">В корзину</button>
                         </div>
-                    {% endfor %}
-                </div>
-            {% elif not error %}
-                <div class="no-results">
-                    <i class="fas fa-search"></i>
-                    <p>К сожалению, по вашему запросу ничего не найдено.</p>
-                </div>
-            {% endif %}
-
-            <div class="back-container">
-                <a href="{{ url_for('index') }}" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Ввести другую тему
-                </a>
+                    </div>
+                {% endfor %}
             </div>
+        {% elif not error %}
+            <div class="no-results">
+                <i class="fas fa-search"></i>
+                <p>К сожалению, по вашему запросу ничего не найдено.</p>
+            </div>
+        {% endif %}
+
+        <div class="back-container">
+            <a href="{{ url_for('index') }}" class="back-link">
+                <i class="fas fa-arrow-left"></i> Ввести другую тему
+            </a>
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

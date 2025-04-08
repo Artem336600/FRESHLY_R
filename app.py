@@ -1,6 +1,6 @@
 # app.py
 import os
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify, send_from_directory
 from dotenv import load_dotenv
 from deepseek import DeepSeekClient
 from supabase import create_client, Client
@@ -8,21 +8,31 @@ from supabase import create_client, Client
 # Импортируем основную функцию из нашего модуля
 from recommender import get_recommendations
 
-load_dotenv() # Загружаем переменные из .env файла
+# Загружаем переменные из .env файла только в development
+if os.path.exists('.env'):
+    load_dotenv()
 
 app = Flask(__name__)
-# Установите секретный ключ для Flask сессий (хотя здесь они не используются, это хорошая практика)
+# Установите секретный ключ для Flask сессий
 app.secret_key = os.getenv("FLASK_SECRET_KEY", "a_default_secret_key_for_dev")
 
 # Инициализация клиентов
 supabase: Client = create_client(
     os.getenv("SUPABASE_URL"),
-    os.getenv("SUPABASE_SERVICE_KEY")  # Используем правильное имя переменной
+    os.getenv("SUPABASE_SERVICE_KEY")
 )
 
 deepseek_client = DeepSeekClient()
 
+print("Успешно подключено к Supabase.")
+print("Клиент DeepSeek инициализирован.")
+
 # --- Маршруты ---
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                             'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/', methods=['GET'])
 def index():
@@ -82,10 +92,12 @@ def search():
         return render_template('search.html', query=query, error=results['error'])
     return render_template('search.html', query=query, products=results.get('products', []))
 
-# --- Запуск приложения (для локальной разработки) ---
+# --- Запуск приложения ---
 if __name__ == '__main__':
-    # debug=True удобен для разработки, но НЕ ИСПОЛЬЗУЙТЕ в продакшене!
-    # host='0.0.0.0' делает сервер доступным по сети (не только с localhost)
-    app.run(debug=True, host='0.0.0.0', port=5001) # Используем порт 5001, чтобы не конфликтовать с другими
-    print("Успешно подключено к Supabase.")
-    print("Клиент DeepSeek инициализирован.")
+    # В development используем debug=True
+    is_development = os.getenv('FLASK_ENV') == 'development'
+    if is_development:
+        app.run(debug=True, host='0.0.0.0', port=5001)
+    else:
+        # В production используем gunicorn (настройки в Procfile)
+        app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)))

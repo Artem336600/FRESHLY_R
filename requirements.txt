@@ -1,6 +1,6 @@
-Flask
-python-dotenv
-openai
-supabase
+Flask==3.0.2
+python-dotenv==1.0.1
+openai==1.71.0
+supabase==2.3.4
+gunicorn==21.2.0
 # Добавьте сюда другие библиотеки, если вы их используете
-# Например, gunicorn для продакшен-сервера
