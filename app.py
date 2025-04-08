@@ -26,7 +26,8 @@ try:
         print("Error: SUPABASE_URL or SUPABASE_SERVICE_KEY environment variables are not set")
         sys.exit(1)
         
-    supabase: Client = create_client(supabase_url, supabase_key)
+    # Создаем клиент Supabase без дополнительных опций
+    supabase = create_client(supabase_url, supabase_key)
     print(f"Successfully connected to Supabase at {supabase_url}")
 except Exception as e:
     print(f"Error initializing Supabase client: {str(e)}")

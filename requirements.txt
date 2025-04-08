@@ -1,7 +1,7 @@
 Flask==3.0.2
 python-dotenv==1.0.1
 openai==1.71.0
-supabase==2.3.4
+supabase==1.2.0
 gunicorn==21.2.0
 requests==2.31.0
 # Добавьте сюда другие библиотеки, если вы их используете
