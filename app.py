@@ -8,6 +8,8 @@ import sys
 
 # Импортируем основную функцию из нашего модуля
 from recommender import get_recommendations
+# Импортируем DeepSeek клиент
+from deepseek import DeepSeekClient
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -35,6 +37,14 @@ try:
     print(f"Successfully connected to Supabase at {supabase_url}")
 except Exception as e:
     print(f"Error initializing Supabase client: {str(e)}")
+    sys.exit(1)
+
+# Инициализация DeepSeek клиента
+try:
+    deepseek_client = DeepSeekClient()
+    print("Successfully initialized DeepSeek client")
+except Exception as e:
+    print(f"Error initializing DeepSeek client: {str(e)}")
     sys.exit(1)
 
 # --- Маршруты ---

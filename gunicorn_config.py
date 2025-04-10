@@ -1,12 +1,14 @@
 import multiprocessing
+import os
 
-# Server socket
-bind = "0.0.0.0:8000"
+# Server socket - use PORT environment variable provided by Railway
+port = os.getenv("PORT", "8000")
+bind = f"0.0.0.0:{port}"
 backlog = 2048
 
 # Worker processes
 workers = multiprocessing.cpu_count() * 2 + 1
-worker_class = "uvicorn.workers.UvicornWorker"
+worker_class = "sync"  # Changed from UvicornWorker to sync
 worker_connections = 1000
 timeout = 300  # Increased from 30 to 300 seconds
 keepalive = 2
